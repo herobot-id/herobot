@@ -52,6 +52,12 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN apt-get update && apt-get install -y dos2unix \
+    && dos2unix /usr/local/bin/start-container \
+    && dos2unix /etc/supervisor/conf.d/supervisord.conf \
+    && apt-get remove -y dos2unix \
+    && apt-get autoremove -y
+
 RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.4
 
 RUN groupadd --force -g $WWWGROUP sail
