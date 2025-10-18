@@ -19,6 +19,8 @@ class WhatsAppStartServer extends Command
             ->run(['node', base_path('whatsapp-server/server.js'), $storagePath], function ($type, $output) {
                 if ($type === 'out') {
                     $this->output->write($output);
+                } elseif ($type === 'err') {
+                    $this->output->error($output);
                 }
             });
     }
